@@ -1,8 +1,8 @@
-package com.anabuigues.tdd.chapter8;
+package com.anabuigues.tdd.chapter9;
 
 import java.lang.reflect.Method;
 
-public class CalcProxy {
+public class CalcProxy implements CalculatorProxy {
 
 	private BasicCalculator calculator;
 	private LimitsValidator validator;
@@ -12,9 +12,11 @@ public class CalcProxy {
 		this.calculator = calculator;
 	}
 
+	@Override
 	public int binaryOperation(OperationType operationType, int arg1, int arg2) {
 		int result = 0;
 
+		validator.validateArgs(arg1, arg2);
 		Method method = null;
 		try {
 			method = calculator.getClass().getDeclaredMethod(
@@ -27,5 +29,15 @@ public class CalcProxy {
 
 		validator.validateResult(result);
 		return result;
+	}
+
+	@Override
+	public BasicCalculator getCalculator() {
+		return calculator;
+	}
+
+	@Override
+	public void setCalculator(BasicCalculator calculator) {
+		this.calculator = calculator;
 	}
 }

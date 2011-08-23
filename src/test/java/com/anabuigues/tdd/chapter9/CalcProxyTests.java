@@ -1,4 +1,4 @@
-package com.anabuigues.tdd.chapter8;
+package com.anabuigues.tdd.chapter9;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -81,5 +81,17 @@ public class CalcProxyTests {
 		} catch (OverflowException oEx) {
 			// Ok, this works
 		}
+	}
+	
+	@Test
+	public void multiply() {
+		int result = calcProxy.binaryOperation(OperationType.multiply, 2, 5);
+		assertEquals(10, result);
+	}
+	
+	@Test
+	public void divide() {
+		int result = calcProxy.binaryOperation(OperationType.divide, 10, 2);
+		assertEquals(5, result);
 	}
 }
